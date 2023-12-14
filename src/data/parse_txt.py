@@ -15,12 +15,13 @@ class Theorem:
     # We just want the name 
     keywords: list[str]
 
-    def __init__(self, name: str, statement:str, steps: list[str], preamble: list[str], keywords: list[str]):
+    def __init__(self, name: str, statement:str, steps: list[str], preamble: list[str], keywords: list[str], statements):
         self.name = name
         self.statement = statement
         self.steps = steps
         self.preamble = preamble
         self.keywords = keywords
+        self.statements = statements
 
     def __str__(self):
         curr_str = self.name
@@ -41,6 +42,9 @@ class Theorem:
                 curr_state.append(self.steps[i])
 
         return curr_state
+    
+    def keyword_to_statement(keyword):
+        return self.statements[keyword]
 
 # List of all docs and keys for import
 FILES_ORDER = ['missing.txt', 'tactics.txt', 'division.txt', 'euclide.txt', 'permutation.txt', 'power.txt', 'gcd.txt', 'primes.txt', 'nthroot.txt']
@@ -51,7 +55,7 @@ import_strings = {}
 keywords_map = {}
 
 # Gets data from one file
-def parse_file(file_name: str, import_strings, file_key, theorems, path, keywords_map):
+def parse_file(file_name: str, import_strings, file_key, theorems, path, keywords_map, statements_map):
     
     print("PARSING " + file_name)
     making_theorem = False
@@ -98,6 +102,7 @@ def parse_file(file_name: str, import_strings, file_key, theorems, path, keyword
             keyword = line[index: end_index]
             keyword = keyword.strip()
             curr_keywords.append(keyword)
+            statements_map[keyword] = line.strip()
             # print(keyword)
             continue
 
@@ -109,6 +114,7 @@ def parse_file(file_name: str, import_strings, file_key, theorems, path, keyword
             keyword = line[index: end_index]
             keyword = keyword.strip()
             curr_keywords.append(keyword)
+            statements_map[keyword] = line.strip()
             # print(keyword)
             continue
 
@@ -120,6 +126,7 @@ def parse_file(file_name: str, import_strings, file_key, theorems, path, keyword
             keyword = line[index: end_index]
             keyword = keyword.strip()
             curr_keywords.append(keyword)
+            statements_map[keyword] = line.strip()
             # print(keyword)
             continue
 
@@ -146,11 +153,12 @@ def parse_file(file_name: str, import_strings, file_key, theorems, path, keyword
         if line.startswith("Qed.") and making_theorem:
             making_theorem = False
 
-            new_theorem = Theorem(curr_name, curr_title, curr_steps, preamble, curr_keywords)
+            new_theorem = Theorem(curr_name, curr_title, curr_steps, preamble, curr_keywords, statements_map)
 
             # Add theorem and reset
             theorems.append(new_theorem)
             curr_keywords.append(curr_name)
+            statements_map[curr_name] = curr_title
 
             curr_name = ""
             curr_title = ""
@@ -172,6 +180,7 @@ def parse_file(file_name: str, import_strings, file_key, theorems, path, keyword
     #     print(theorem.get_random_state())
     #     print("--------------")
 
+statements_map = {}
 
 # Iterate over all files to get data
 def get_all_theorems(path):
@@ -179,7 +188,7 @@ def get_all_theorems(path):
     theorems: tuple[Theorem] = []
     for i, file_name in enumerate(FILES_ORDER):
         file_key = IMPORT_KEYS[i]
-        parse_file(file_name, import_strings, file_key, theorems, path, keywords_map)
+        parse_file(file_name, import_strings, file_key, theorems, path, keywords_map, statements_map)
 
     return theorems
 
@@ -188,4 +197,4 @@ T = get_all_theorems('./txt files/')
 # for t in T:
 #     pprint(t.keywords)
 
-# pprint(T[-10].preamble)
+# pprint(T[-10].statements)
