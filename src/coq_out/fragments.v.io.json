@@ -1,0 +1,39 @@
+[
+    [
+        {
+            "_type": "text",
+            "contents": "Require Import missing."
+        }
+    ],
+    [
+        {
+            "_type": "sentence",
+            "contents": "Require Import Wf_nat.",
+            "messages": [],
+            "goals": []
+        }
+    ],
+    [
+        {
+            "_type": "sentence",
+            "contents": "Definition divides (a b:nat) := exists q:nat,a = (b*q).",
+            "messages": [],
+            "goals": []
+        }
+    ],
+    [
+        {
+            "_type": "sentence",
+            "contents": "Lemma one_min_div : forall (n:nat),(divides n 1).",
+            "messages": [],
+            "goals": [
+                {
+                    "_type": "goal",
+                    "name": null,
+                    "conclusion": "forall n : nat, divides n 1",
+                    "hypotheses": []
+                }
+            ]
+        }
+    ]
+]

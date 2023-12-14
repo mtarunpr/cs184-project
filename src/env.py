@@ -5,6 +5,10 @@ from actions.tactics import TACTIC_MAP, tactic_to_idx
 from itertools import combinations
 from mdp import Action, Fringe, State, Goal
 from typing import Optional
+import alectryon.docutils
+
+alectryon.docutils.CACHE_DIRECTORY = "coq_cache"
+alectryon.docutils.setup()
 
 
 def apply_coq(proof: list[str]) -> tuple[Optional[Fringe], float]:
@@ -78,6 +82,7 @@ class Env:
         the proof have already been taken.
         """
         self.opening_book = preamble[:] + [statement] + starter_actions[:]
+        print(self.opening_book)
         (fringe, _) = apply_coq(self.opening_book)
         self.state = State([fringe])
 
@@ -160,27 +165,31 @@ class Env:
         return new_env
 
 
-if __name__ == "__main__":
-    # Simple example
-    env = Env(
-        "Lemma one_min_div : forall (n:nat),(divides n 1).",
-        [
-            "Require Import Wf_nat.",
-            "Definition divides (a b:nat) := exists q:nat,a = (b*q).",
-        ],
-        ["intros.", "red.", "exists n."],
-    )
-    # Apply the "auto." action
-    action = Action(0, 0, tactic_to_idx("auto"))
-    state, reward, _, _ = env.step(action)
-    print(f"Reward: {reward}")
-    print()
+# if __name__ == "__main__":
+#     # Simple example
+#     env = Env(
+#         "Lemma one_min_div : forall (n:nat),(divides n 1).",
+#         [
+#             "Require Import Wf_nat.",
+#             "Definition divides (a b:nat) := exists q:nat,a = (b*q).",
+#         ],
+#         ["intros.", "red.", "exists n."],
+#     )
+#     # Apply the "auto." action
+#     action = Action(0, 0, tactic_to_idx("auto"))
+#     state, reward, _, _ = env.step(action)
+#     print(f"Reward: {reward}")
+#     print()
 
-    for i, fringe in enumerate(state.fringes):
-        print(f"FRINGE {i}")
-        pretty_print_proof(fringe.proof)
-        print()
-        print("Goals:")
-        for goal in fringe.goals:
-            print(goal)
-        print()
+#     for i, fringe in enumerate(state.fringes):
+#         print(f"FRINGE {i}")
+#         pretty_print_proof(fringe.proof)
+#         print()
+#         print("Goals:")
+#         for goal in fringe.goals:
+#             print(goal)
+#         print()
+
+if __name__ == "__main__":
+    test = annotate([], fpath="coq/division.v")
+    print(test)

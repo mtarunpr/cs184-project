@@ -1,0 +1,59 @@
+{
+  "metadata": {
+    "cache_version": "2"
+  },
+  "&coq": {
+    "driver": [
+      "Coq+SerAPI",
+      "8.18.0+0.18.1"
+    ],
+    "metadata": {
+      "sertop_args": []
+    },
+    "chunks": [
+      "Require Import missing.",
+      "Require Import Wf_nat.",
+      "Definition divides (a b:nat) := exists q:nat,a = (b*q).",
+      "Lemma one_min_div : forall (n:nat),(divides n 1)."
+    ],
+    "annotated": [
+      [
+        {
+          "_type": "text",
+          "contents": "Require Import missing."
+        }
+      ],
+      [
+        {
+          "_type": "sentence",
+          "contents": "Require Import Wf_nat.",
+          "messages": [],
+          "goals": []
+        }
+      ],
+      [
+        {
+          "_type": "sentence",
+          "contents": "Definition divides (a b:nat) := exists q:nat,a = (b*q).",
+          "messages": [],
+          "goals": []
+        }
+      ],
+      [
+        {
+          "_type": "sentence",
+          "contents": "Lemma one_min_div : forall (n:nat),(divides n 1).",
+          "messages": [],
+          "goals": [
+            {
+              "_type": "goal",
+              "name": null,
+              "conclusion": "forall n : nat, divides n 1",
+              "hypotheses": []
+            }
+          ]
+        }
+      ]
+    ]
+  }
+}

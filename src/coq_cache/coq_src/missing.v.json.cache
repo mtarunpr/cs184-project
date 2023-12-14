@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "cache_version": "2"
+  },
+  "&coq": {
+    "driver": [
+      "Coq+SerAPI",
+      "8.18.0+0.18.1"
+    ],
+    "metadata": {
+      "sertop_args": []
+    },
+    "chunks": [
+      "Require Export Arith."
+    ],
+    "annotated": [
+      [
+        {
+          "_type": "sentence",
+          "contents": "Require Export Arith.",
+          "messages": [
+            {
+              "_type": "message",
+              "contents": "[Loading ML file ring_plugin.cmxs (using legacy method) ... done]"
+            }
+          ],
+          "goals": []
+        }
+      ]
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+[
+  "Require Import missing.",
+  "Require Import Wf_nat.",
+  "Definition divides (a b:nat) := exists q:nat,a = (b*q).",
+  "Lemma one_min_div : forall (n:nat),(divides n 1)."
+]

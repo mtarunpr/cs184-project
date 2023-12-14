@@ -1,0 +1,15 @@
+[
+    [
+        {
+            "_type": "sentence",
+            "contents": "Require Export Arith.",
+            "messages": [
+                {
+                    "_type": "message",
+                    "contents": "[Loading ML file ring_plugin.cmxs (using legacy method) ... done]"
+                }
+            ],
+            "goals": []
+        }
+    ]
+]
